@@ -1,0 +1,35 @@
+{
+  "name": "libkss",
+  "version": "0.9.0",
+  "description": "KSS player library for Javascript",
+  "main": "src/entry.js",
+  "files": [
+    "README.md",
+    "package.json",
+    "src",
+    "lib"
+  ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepublish": "npm run build",
+    "build": "mkdirp lib build && cd build && emcmake cmake .. && cmake --build . && cp-cli libkss.js ../lib/libkss.js",
+    "jsdoc": "jsdoc -c jsdoc.config.json --readme README.md",
+    "lint": "eslint src"
+  },
+  "keywords": [],
+  "author": "Mitsutaka Okazaki",
+  "license": "MIT",
+  "devDependencies": {
+    "cp-cli": "^1.1.0",
+    "eslint": "^4.11.0",
+    "mkdirp": "^0.5.1"
+  },
+  "dependencies": {
+    "encoding-japanese": "^1.0.26",
+    "exports-loader": "^0.6.4"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/digital-sound-antiques/libkss-js.git"
+  }
+}

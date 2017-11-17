@@ -1,0 +1,33 @@
+{
+    "env": {
+        "browser": true,
+        "commonjs": true
+    },
+    "extends": "eslint:recommended",
+    "globals": {
+        "Int16Array": false,
+        "Uint8Array": false,
+        "define": false
+    },
+    "rules": {
+        "keyword-spacing": [
+            "error"
+        ],
+        "indent": [
+            "error",
+            2
+        ],
+        "linebreak-style": [
+            "error",
+            "unix"
+        ],
+        "quotes": [
+            "error",
+            "single"
+        ],
+        "semi": [
+            "error",
+            "always"
+        ]
+    }
+}

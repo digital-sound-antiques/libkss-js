@@ -1,0 +1,33 @@
+{
+
+	"plugins": [
+		"plugins/markdown"
+	],
+	"source":{
+		"include":["src"]
+	},
+	"templates" : {
+	"cleverLinks"     : false,
+	"monospaceLinks"  : false,
+	"default"         : {
+		"outputSourceFiles" : true
+	},
+	"systemName"      : "libkss.js",
+	"footer"          : "",
+	"copyright"       : "Copyright (C) 2017 Digital Sound Antiques",
+	"navType"         : "vertical",
+	"theme"			  : "yeti",
+	"linenums"        : true,
+	"collapseSymbols" : false,
+	"inverseNav"      : true
+	},
+	"markdown" : {
+		"parser": "gfm"
+	},
+	"opts": {
+		"template": "node_modules/ink-docstrap/template",
+		"encoding": "utf8",
+		"destination": "./docs/",
+		"recurse": true
+	}
+}
