@@ -1,3 +1,6 @@
+# libkss-js [![npm version](https://badge.fury.io/js/libkss-js.svg)](https://badge.fury.io/js/libkss-js)
+<img src="https://nodei.co/npm/libkss-js.png?downloads=true&stars=true" alt=""/>
+
 # Install
 ```
 npm install --save-dev libkss
