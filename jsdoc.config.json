@@ -1,5 +1,4 @@
 {
-
 	"plugins": [
 		"plugins/markdown"
 	],
@@ -12,9 +11,9 @@
 	"default"         : {
 		"outputSourceFiles" : true
 	},
-	"systemName"      : "libkss.js",
+	"systemName"      : "libkss-js",
 	"footer"          : "",
-	"copyright"       : "Copyright (C) 2017 Digital Sound Antiques",
+	"copyright"       : "",
 	"navType"         : "vertical",
 	"theme"			  : "yeti",
 	"linenums"        : true,

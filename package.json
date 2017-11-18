@@ -6,6 +6,7 @@
   "files": [
     "README.md",
     "package.json",
+    "LICENSE",
     "src",
     "lib"
   ],
@@ -18,7 +19,7 @@
   },
   "keywords": [],
   "author": "Mitsutaka Okazaki",
-  "license": "MIT",
+  "license": "ISC",
   "devDependencies": {
     "cp-cli": "^1.1.0",
     "eslint": "^4.11.0",
