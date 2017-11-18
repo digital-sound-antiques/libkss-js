@@ -187,6 +187,17 @@
   };
 
   /**
+   * Set RC low-pass filter params.
+   * @method
+   * @memberof KSSPlay
+   * @param {number} r - Registor (OM)
+   * @param {number} c - Capacitor (nF)
+   */
+  KSSPlay.prototype.setRCF = function(r, c) {
+    return Module.ccall('KSSPLAY_set_rcf', null, ['number', 'number'], [this._kssplay, r, c]);
+  };
+
+  /**
    * Release the object. Without calling this method will cause memory-leak.
    * @method
    * @memberof KSSPlay
