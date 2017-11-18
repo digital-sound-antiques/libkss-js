@@ -1,5 +1,5 @@
 {
-  "name": "libkss",
+  "name": "libkss-js",
   "version": "0.9.0",
   "description": "KSS player library for Javascript",
   "main": "src/entry.js",
