@@ -6,6 +6,7 @@
 		"include":["src"]
 	},
 	"templates" : {
+	"includeDate"     : false,
 	"cleverLinks"     : false,
 	"monospaceLinks"  : false,
 	"default"         : {
