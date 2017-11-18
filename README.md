@@ -35,3 +35,5 @@ npm install
 npm run build
 ```
 
+# API Document
+https://digital-sound-antiques.github.io/libkss-js/
