@@ -29,7 +29,7 @@ kss.release();
 node.js, `emcmake` and `cmake` with some proper C compiler is required.
 
 ```
-git clone https://github.com/digital-sound-antiques/libkss-js.git
+git clone --recursive https://github.com/digital-sound-antiques/libkss-js.git
 cd libkss-js
 npm install
 npm run build
