@@ -58,7 +58,8 @@
    * @static
    * @memberof KSSPlay
    * @param {number} [ptr] The pointer to the allocated buffer.
-   * @param {number} [size] buffer length in bytes.
+   * @param {number} [size] The size of Int16Array.
+   * @returns {Int16Array}
    */
   KSSPlay.toInt16Array = function(ptr, size) {
     return new Int16Array(Module.HEAPU8.buffer, ptr, size);
