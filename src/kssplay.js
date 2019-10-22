@@ -10,12 +10,7 @@
    * @param {number} [rate=44100] - The audio playback rate.
    */
   var KSSPlay = function(rate) {
-    this._kssplay = Module.ccall(
-      "KSSPLAY_new",
-      "number",
-      ["number", "number", "number"],
-      [rate || 44100, 1, 16]
-    );
+    this._kssplay = Module.ccall("KSSPLAY_new", "number", ["number", "number", "number"], [rate || 44100, 1, 16]);
     this._buffer = null;
   };
 
@@ -103,12 +98,7 @@
    * @param {KSS} kss - kss instance.
    */
   KSSPlay.prototype.setData = function(kss) {
-    Module.ccall(
-      "KSSPLAY_set_data",
-      null,
-      ["number", "number"],
-      [this._kssplay, kss.obj]
-    );
+    Module.ccall("KSSPLAY_set_data", null, ["number", "number"], [this._kssplay, kss.obj]);
   };
 
   /**
@@ -120,12 +110,7 @@
    */
 
   KSSPlay.prototype.reset = function(song, cpuSpeed) {
-    Module.ccall(
-      "KSSPLAY_reset",
-      null,
-      ["number", "number", "number"],
-      [this._kssplay, song || 0, cpuSpeed || 0]
-    );
+    Module.ccall("KSSPLAY_reset", null, ["number", "number", "number"], [this._kssplay, song || 0, cpuSpeed || 0]);
   };
 
   KSSPlay.prototype._ensureBufferSize = function(size) {
@@ -157,12 +142,7 @@
    * @param {number} samples The number of samples to render.
    */
   KSSPlay.prototype.calcToBuffer = function(buffer, samples) {
-    Module.ccall(
-      "KSSPLAY_calc",
-      null,
-      ["number", "number", "number"],
-      [this._kssplay, buffer, samples]
-    );
+    Module.ccall("KSSPLAY_calc", null, ["number", "number", "number"], [this._kssplay, buffer, samples]);
   };
 
   /**
@@ -172,12 +152,7 @@
    * @returns The number of the current loop counts.
    */
   KSSPlay.prototype.getLoopCount = function() {
-    return Module.ccall(
-      "KSSPLAY_get_loop_count",
-      "number",
-      ["number"],
-      [this._kssplay]
-    );
+    return Module.ccall("KSSPLAY_get_loop_count", "number", ["number"], [this._kssplay]);
   };
 
   /**
@@ -185,12 +160,7 @@
    * @returns 0: Not started, 1: In progress, 3: Completed.
    */
   KSSPlay.prototype.getFadeFlag = function() {
-    return Module.ccall(
-      "KSSPLAY_get_fade_flag",
-      "number",
-      ["number"],
-      [this._kssplay]
-    );
+    return Module.ccall("KSSPLAY_get_fade_flag", "number", ["number"], [this._kssplay]);
   };
 
   /**
@@ -200,12 +170,7 @@
    * @param {number} time maximum silent span in millis.
    */
   KSSPlay.prototype.setSilentLimit = function(time) {
-    Module.ccall(
-      "KSSPLAY_set_silent_limit",
-      null,
-      ["number", "number"],
-      [this._kssplay, time]
-    );
+    Module.ccall("KSSPLAY_set_silent_limit", null, ["number", "number"], [this._kssplay, time]);
   };
 
   /**
@@ -215,12 +180,7 @@
    * @param {number} duration fade-out duration in millis.
    */
   KSSPlay.prototype.fadeStart = function(duration) {
-    Module.ccall(
-      "KSSPLAY_fade_start",
-      null,
-      ["number", "number"],
-      [this._kssplay, duration]
-    );
+    Module.ccall("KSSPLAY_fade_start", null, ["number", "number"], [this._kssplay, duration]);
   };
 
   /**
@@ -230,12 +190,7 @@
    * @returns 0: not stopped, 1: stopped.
    */
   KSSPlay.prototype.getStopFlag = function() {
-    return Module.ccall(
-      "KSSPLAY_get_stop_flag",
-      "number",
-      ["number"],
-      [this._kssplay]
-    );
+    return Module.ccall("KSSPLAY_get_stop_flag", "number", ["number"], [this._kssplay]);
   };
 
   /**
@@ -246,12 +201,7 @@
    * @param {number} c - Capacitor (nF)
    */
   KSSPlay.prototype.setRCF = function(r, c) {
-    return Module.ccall(
-      "KSSPLAY_set_rcf",
-      null,
-      ["number", "number"],
-      [this._kssplay, r, c]
-    );
+    return Module.ccall("KSSPLAY_set_rcf", null, ["number", "number"], [this._kssplay, r, c]);
   };
 
   /**

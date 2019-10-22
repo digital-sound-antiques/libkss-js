@@ -20,12 +20,7 @@
 
     var buf = Module._malloc(data.length);
     Module.HEAPU8.set(data, buf);
-    this.obj = Module.ccall(
-      "KSS_bin2kss",
-      "number",
-      ["number", "number", "string"],
-      [buf, data.length, filename]
-    );
+    this.obj = Module.ccall("KSS_bin2kss", "number", ["number", "number", "string"], [buf, data.length, filename]);
     if (this.obj == 0) {
       throw new Error("Can't create KSS object.");
     }
