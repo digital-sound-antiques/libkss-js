@@ -1,10 +1,10 @@
-(function () {
-  'use strict';
+(function() {
+  "use strict";
 
-  var Module = require('./module');
-  var encoding = require('encoding-japanese');
-  var crypto = require('crypto');
-  var alg = 'sha1';
+  var Module = require("./module");
+  var encoding = require("encoding-japanese");
+  var crypto = require("crypto");
+  var alg = "sha1";
 
   /**
    * Create a new KSS object.
@@ -15,14 +15,19 @@
    */
   var KSS = function(data, filename) {
     if (65536 < data.length) {
-      throw new Error('Wrong data format.');
+      throw new Error("Wrong data format.");
     }
 
     var buf = Module._malloc(data.length);
-    Module.HEAPU8.set(data,buf);
-    this.obj = Module.ccall('KSS_bin2kss','number',['number','number','string'],[buf,data.length,filename]);
+    Module.HEAPU8.set(data, buf);
+    this.obj = Module.ccall(
+      "KSS_bin2kss",
+      "number",
+      ["number", "number", "string"],
+      [buf, data.length, filename]
+    );
     if (this.obj == 0) {
-      throw new Error('Can\'t create KSS object.');
+      throw new Error("Can't create KSS object.");
     }
     Module._free(buf);
   };
@@ -48,19 +53,20 @@
    * @static
    */
   KSS.createUniqueInstance = function(data, filename) {
-
     var hash = crypto.createHash(alg);
     hash.update(data);
-    var hashHex = alg + ':' + hash.digest('hex');
+    var hashHex = alg + ":" + hash.digest("hex");
 
     var kss = KSS.hashMap[hashHex];
-    if (kss) { return kss; }
+    if (kss) {
+      return kss;
+    }
 
     kss = new KSS(data, filename);
     kss.hash = hashHex;
     KSS.hashMap[kss.hash] = kss;
 
-    if (data[0]==75&&data[1]==83&&data[2]==67&&data[3]==67) {
+    if (data[0] == 75 && data[1] == 83 && data[2] == 67 && data[3] == 67) {
       kss.hasMultiSongs = true;
     }
 
@@ -75,37 +81,37 @@
    * @static
    */
   KSS.loadFromUrl = function(url, complete) {
-
     var xhr = new XMLHttpRequest();
 
-    xhr.open('GET',url,true);
-    xhr.responseType = 'arraybuffer';
+    xhr.open("GET", url, true);
+    xhr.responseType = "arraybuffer";
 
     var err;
 
-    xhr.addEventListener('load',function(){
+    xhr.addEventListener("load", function() {
       if (xhr.status == 200 || xhr.status == 304 || xhr.status == 0) {
         try {
-          var kss = KSS.createUniqueInstance(new Uint8Array(xhr.response),url);
+          var kss = KSS.createUniqueInstance(new Uint8Array(xhr.response), url);
           if (complete) complete(kss, url);
         } catch (e) {
           if (complete) complete(e, url);
         }
       } else if (xhr.status == 404) {
-        err = new Error('File Not Found: ' + url);
+        err = new Error("File Not Found: " + url);
         if (complete) complete(err, url);
       } else {
         err = new Error(xhr.statusText);
         if (complete) complete(err, url);
-      } 
+      }
     });
 
-    xhr.addEventListener('error', function() {
-      var err = new Error('Load Error: Check "Access-Control-Allow-Origin" header is present for the target resource. See browser\'s development panel for detail. If you run this script local Chrome, `--allow-file-access-from-files` option is required.');
+    xhr.addEventListener("error", function() {
+      var err = new Error(
+        'Load Error: Check "Access-Control-Allow-Origin" header is present for the target resource. See browser\'s development panel for detail. If you run this script local Chrome, `--allow-file-access-from-files` option is required.'
+      );
       if (complete) complete(err, url);
     });
     xhr.send();
-
   };
 
   /**
@@ -115,14 +121,18 @@
    * @returns The title string if exists.
    */
   KSS.prototype.getTitle = function() {
-    var ptr = Module.ccall('KSS_get_title','number',['number'],[this.obj]);
+    var ptr = Module.ccall("KSS_get_title", "number", ["number"], [this.obj]);
     var i;
-    for (i=0; i<256; i++) {
-      if (Module.HEAPU8[ptr+i]==0 ) break;
+    for (i = 0; i < 256; i++) {
+      if (Module.HEAPU8[ptr + i] == 0) break;
     }
-    return encoding.convert(new Uint8Array(Module.HEAPU8.buffer,ptr,i),{to:'UNICODE',from:'SJIS',type:'String'});
+    return encoding.convert(new Uint8Array(Module.HEAPU8.buffer, ptr, i), {
+      to: "UNICODE",
+      from: "SJIS",
+      type: "String"
+    });
   };
-  
+
   /**
    * Release the object. Without calling this method will cause memory-leak.
    * @method
@@ -130,20 +140,20 @@
    */
   KSS.prototype.release = function() {
     if (this.obj) {
-      Module.ccall('KSS_delete',null,['number'],[this.obj]);
+      Module.ccall("KSS_delete", null, ["number"], [this.obj]);
       this.obj = null;
       delete KSS.hashMap[this.hash];
     } else {
-      throw new Error('KSS double-release: ' + this.hash);
+      throw new Error("KSS double-release: " + this.hash);
     }
   };
 
-  if (typeof exports === 'object') {
+  if (typeof exports === "object") {
     module.exports = KSS;
-  } else if (typeof define === 'function' && define.amd) {
+  } else if (typeof define === "function" && define.amd) {
     // AMD. Register as an anonymous module.
-    define(function(){
+    define(function() {
       return KSS;
     });
   }
-}());
+})();

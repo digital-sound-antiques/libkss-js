@@ -1,33 +1,31 @@
 {
-	"plugins": [
-		"plugins/markdown"
-	],
-	"source":{
-		"include":["src"]
-	},
-	"templates" : {
-	"includeDate"     : false,
-	"cleverLinks"     : false,
-	"monospaceLinks"  : false,
-	"default"         : {
-		"outputSourceFiles" : true
-	},
-	"systemName"      : "libkss-js",
-	"footer"          : "",
-	"copyright"       : "",
-	"navType"         : "vertical",
-	"theme"			  : "yeti",
-	"linenums"        : true,
-	"collapseSymbols" : false,
-	"inverseNav"      : true
-	},
-	"markdown" : {
-		"parser": "gfm"
-	},
-	"opts": {
-		"template": "node_modules/ink-docstrap/template",
-		"encoding": "utf8",
-		"destination": "./docs/",
-		"recurse": true
-	}
+  "plugins": ["plugins/markdown"],
+  "source": {
+    "include": ["src"]
+  },
+  "templates": {
+    "includeDate": false,
+    "cleverLinks": false,
+    "monospaceLinks": false,
+    "default": {
+      "outputSourceFiles": true
+    },
+    "systemName": "libkss-js",
+    "footer": "",
+    "copyright": "",
+    "navType": "vertical",
+    "theme": "yeti",
+    "linenums": true,
+    "collapseSymbols": false,
+    "inverseNav": true
+  },
+  "markdown": {
+    "parser": "gfm"
+  },
+  "opts": {
+    "template": "node_modules/ink-docstrap/template",
+    "encoding": "utf8",
+    "destination": "./docs/",
+    "recurse": true
+  }
 }
