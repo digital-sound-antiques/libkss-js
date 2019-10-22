@@ -66,7 +66,13 @@
     kss.hash = hashHex;
     KSS.hashMap[kss.hash] = kss;
 
+    // KSCC
     if (data[0] == 75 && data[1] == 83 && data[2] == 67 && data[3] == 67) {
+      kss.hasMultiSongs = true;
+    }
+
+    // KSSX
+    if (data[0] == 75 && data[1] == 83 && data[2] == 83 && data[3] == 88) {
       kss.hasMultiSongs = true;
     }
 
