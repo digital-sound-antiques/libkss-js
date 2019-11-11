@@ -1,11 +1,8 @@
 {
   "name": "libkss-js",
-  "version": "0.10.6",
+  "version": "0.11.0",
   "description": "KSS player library for Javascript",
   "main": "src/entry.js",
-  "bin": {
-    "kss2wav": "./bin/kss2wav.js"
-  },
   "files": [
     "README.md",
     "package.json",
@@ -18,7 +15,7 @@
     "prepublish": "npm run clean && npm run build",
     "clean": "rm-cli -ss -r lib build",
     "build": "mkdirp lib build && cd build && emcmake cmake .. && cmake --build . && cp-cli libkss.js ../lib/libkss.js",
-    "jsdoc": "rm-cli -r docs && jsdoc -c jsdoc.config.json --readme README.md",
+    "jsdoc": "rm-cli -r docs ; jsdoc -c jsdoc.config.json --readme README.md",
     "lint": "eslint src"
   },
   "keywords": [],
@@ -26,9 +23,11 @@
   "license": "ISC",
   "devDependencies": {
     "cp-cli": "^1.1.0",
-    "eslint": "^4.19.1",
+    "eslint": "^5.16.0",
     "eslint-config-prettier": "^6.4.0",
     "eslint-plugin-prettier": "^3.1.1",
+    "ink-docstrap": "^1.3.2",
+    "jsdoc": "^3.6.3",
     "mkdirp": "^0.5.1",
     "prettier": "^1.18.2",
     "rm-cli": "^1.4.2"

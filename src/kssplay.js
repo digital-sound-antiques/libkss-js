@@ -211,8 +211,70 @@
    */
   KSSPlay.prototype.release = function() {
     Module.ccall("KSSPLAY_delete", null, ["number"], [this._kssplay]);
+    if (this._memwrite_handler) {
+      Module.removeFunction(this._memwrite_handler);
+      this._memwrite_handler = null;
+    }
+    if (this._iowrite_handler) {
+      Module.removeFunction(this._iowrite_handler);
+      this._iowrite_handler = null;
+    }
     this._kssplay = null;
     this._buffer = null;
+  };
+
+  /**
+   * @callback KSSPlay~IOWriteHandler
+   * @param {KSSPlay} context
+   * @param {number} adr
+   * @param {number} data
+   */
+
+  /**
+   * Set I/O write handler
+   * @method
+   * @memberof KSSPlay
+   * @param {KSSPlay~IOWriteHandler} callback
+   */
+  KSSPlay.prototype.setIOWriteHandler = function(callback) {
+    if (this._iowrite_handler) {
+      Module.removeFunction(this._iowrite_handler);
+    }
+
+    this._iowrite_handler = Module.addFunction((_,a,d) => callback(this, a, d), "viii");
+
+    Module.ccall(
+      "KSSPLAY_set_iowrite_handler",
+      null,
+      ["number", "number", "number"],
+      [this._kssplay, 0, this._iowrite_handler]
+    );
+  };
+
+  /**
+   * @callback KSSPlay~MemWriteHandler
+   * @param {KSSPlay} context
+   * @param {number} adr
+   * @param {number} data
+   */
+
+  /**
+   * Set memory write handler
+   * @method
+   * @memberof KSSPlay
+   * @param {KSSPlay~MemWriteHandler} callback
+   */
+  KSSPlay.prototype.setMemWriteHandler = function(callback) {
+    if (this._memwrite_handler) {
+      Module.removeFunction(this._memwrite_handler);
+    }
+    this._memwrite_handler = Module.addFunction((_,a,d) => callback(this, a, d), "viii");
+    Module.ccall(
+      "KSSPLAY_set_memwrite_handler",
+      null,
+      ["number", "number", "number"],
+      [this._kssplay, 0, this._memwrite_handler]
+    );
   };
 
   if (typeof exports === "object") {
