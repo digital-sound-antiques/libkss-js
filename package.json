@@ -1,8 +1,11 @@
 {
   "name": "libkss-js",
-  "version": "0.10.5",
+  "version": "0.10.6",
   "description": "KSS player library for Javascript",
   "main": "src/entry.js",
+  "bin": {
+    "kss2wav": "./bin/kss2wav.js"
+  },
   "files": [
     "README.md",
     "package.json",

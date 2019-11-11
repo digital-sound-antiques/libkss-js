@@ -14,7 +14,7 @@
    * @param {string} [filename] the name of the KSS file
    */
   var KSS = function(data, filename) {
-    if (65536 < data.length) {
+    if (256 * 65536 < data.length) {
       throw new Error("Wrong data format.");
     }
 
