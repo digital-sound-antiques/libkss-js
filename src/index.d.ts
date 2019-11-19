@@ -15,7 +15,7 @@ declare module "libkss-js" {
     toInt16Array(ptr: number, size: number): Int16Array;
     setDeviceQuality(config: { psg: number; scc: number; opll: number; opl: number }): void;
     setData(kss: KSS): void;
-    reset(): void;
+    reset(song?: number, cpuSpeed?: number): void;
     calc(samples: number): Int16Array;
     calcSilent(samples: number): void;
     getLoopCount(): number;
