@@ -10,9 +10,9 @@ declare module "libkss-js" {
 
   class KSSPlay {
     constructor(rate: number);
-    _malloc(size: number): void;
+    _malloc(size: number): number;
     _free(size: number): void;
-    toInt16Array(ptr: number, size: number): void;
+    toInt16Array(ptr: number, size: number): Int16Array;
     setDeviceQuality(config: { psg: number; scc: number; opll: number; opl: number }): void;
     setData(kss: KSS): void;
     reset(): void;
