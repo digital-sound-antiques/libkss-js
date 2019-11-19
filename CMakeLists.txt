@@ -17,6 +17,7 @@ set (exported_function_list
   _KSSPLAY_set_data
   _KSSPLAY_delete
   _KSSPLAY_calc
+  _KSSPLAY_calc_silent
   _KSSPLAY_get_loop_count
   _KSSPLAY_get_fade_flag
   _KSSPLAY_fade_start

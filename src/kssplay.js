@@ -146,6 +146,16 @@
   };
 
   /**
+   * Calculate specified length without rendering wave.
+   * @method
+   * @memberof KSSPlay
+   * @param {number} samples The number of samples to calculate.
+   */
+  KSSPlay.prototype.calcSilent = function(samples) {
+    Module.ccall("KSSPLAY_calc_silent", null, ["number", "number"], [this._kssplay, samples]);
+  };
+
+  /**
    * Get the number of loops of the current playing music.
    * @method
    * @memberof KSSPlay
@@ -241,7 +251,7 @@
       Module.removeFunction(this._iowrite_handler);
     }
 
-    this._iowrite_handler = Module.addFunction((_,a,d) => callback(this, a, d), "viii");
+    this._iowrite_handler = Module.addFunction((_, a, d) => callback(this, a, d), "viii");
 
     Module.ccall(
       "KSSPLAY_set_iowrite_handler",
@@ -268,7 +278,7 @@
     if (this._memwrite_handler) {
       Module.removeFunction(this._memwrite_handler);
     }
-    this._memwrite_handler = Module.addFunction((_,a,d) => callback(this, a, d), "viii");
+    this._memwrite_handler = Module.addFunction((_, a, d) => callback(this, a, d), "viii");
     Module.ccall(
       "KSSPLAY_set_memwrite_handler",
       null,
