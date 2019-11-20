@@ -23,7 +23,7 @@
   "author": "Mitsutaka Okazaki",
   "license": "ISC",
   "devDependencies": {
-    "cp-cli": "^1.1.0",
+    "cp-cli": "^1.1.2",
     "eslint": "^5.16.0",
     "eslint-config-prettier": "^6.4.0",
     "eslint-plugin-prettier": "^3.1.1",
