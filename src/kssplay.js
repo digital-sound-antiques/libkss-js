@@ -296,3 +296,11 @@
     });
   }
 })();
+
+KSSPlay.prototype.writeIO = function(a, d) {
+  Module.ccall("KSSPLAY_write_io", null, ["number", "number", "number"], [this._kssplay, a, d]);
+};
+
+KSSPlay.prototype.writeMemory = function(a, d) {
+  Module.ccall("KSSPLAY_write_io", null, ["number", "number", "number"], [this._kssplay, a, d]);
+};

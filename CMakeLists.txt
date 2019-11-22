@@ -1,12 +1,12 @@
 cmake_minimum_required(VERSION 2.8)
 
+project(LIBKSS_JS)
+
 set(CMAKE_C_FLAGS "-O3 -Wall -s WASM=0")
 
 add_subdirectory(modules/libkss)
 
 include_directories(modules/libkss)
-
-file(GLOB SOURCES src/*.c)
 
 add_executable(libkss src/main.c)
 target_link_libraries(libkss kss)
@@ -27,10 +27,13 @@ set (exported_function_list
   _KSSPLAY_set_rcf
   _KSSPLAY_set_iowrite_handler
   _KSSPLAY_set_memwrite_handler
+  _KSSPLAY_write_io
+  _KSSPLAY_write_memory
   _KSS_new
   _KSS_get_title
   _KSS_delete
   _KSS_bin2kss
+  _main
 )
 
 list(JOIN exported_function_list "','" exported_functions)

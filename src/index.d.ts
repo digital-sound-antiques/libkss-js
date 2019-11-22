@@ -27,5 +27,7 @@ declare module "libkss-js" {
     release(): void;
     setIOWriteHandler(cb: (context: KSSPlay, a: number, d: number) => void): void;
     setMemWriteHandler(cb: (context: KSSPlay, a: number, d: number) => void): void;
+    writeIO(a: number, d: number): void;
+    writeMemory(a: number, d: number): void;
   }
 }
