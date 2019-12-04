@@ -33,7 +33,6 @@ set (exported_function_list
   _KSS_get_title
   _KSS_delete
   _KSS_bin2kss
-  _main
 )
 
 list(JOIN exported_function_list "','" exported_functions)
