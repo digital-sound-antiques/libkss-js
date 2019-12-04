@@ -11,9 +11,11 @@
    * @name KSS
    * @constructor
    * @param {UInt8Array} data the KSS file binary.
-   * @param {string} [filename] the name of the KSS file
+   * @param {string} filename the name of the KSS file (used only for determine file type).
+   * @param {number} [song=0] internal song index. (0 to 255)
    */
-  var KSS = function(data, filename) {
+  var KSS = function(data, filename, song) {
+    song = song || 0;
     if (256 * 65536 < data.length) {
       throw new Error("Wrong data format.");
     }
@@ -24,6 +26,7 @@
     if (this.obj == 0) {
       throw new Error("Can't create KSS object.");
     }
+    this.song = song;
     Module._free(buf);
   };
 
@@ -42,22 +45,24 @@
   /**
    * Create a unique KSS object. If the same data is given, this function returns the same KSS instance.
    * @param {UInt8Array} data the KSS file binary.
-   * @param {string} [filename] the name of the KSS file
+   * @param {string} filename the name of the KSS file.
+   * @param {number} [song=0] internal song index.
    * @returns A KSS instance.
    * @memberof KSS
    * @static
    */
-  KSS.createUniqueInstance = function(data, filename) {
+  KSS.createUniqueInstance = function(data, filename, song) {
+    song = song || 0;
     var hash = crypto.createHash(alg);
     hash.update(data);
-    var hashHex = alg + ":" + hash.digest("hex");
+    var hashHex = alg + ":" + hash.digest("hex") + ":" + song;
 
     var kss = KSS.hashMap[hashHex];
     if (kss) {
       return kss;
     }
 
-    kss = new KSS(data, filename);
+    kss = new KSS(data, filename, song);
     kss.hash = hashHex;
     KSS.hashMap[kss.hash] = kss;
 

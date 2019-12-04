@@ -1,6 +1,6 @@
 declare module "libkss-js" {
   class KSS {
-    constructor(data: Uint8Array, name: string);
+    constructor(data: Uint8Array, name: string, song?: number);
     releaseAll(): void;
     createUniqueInstance(data: Uint8Array, name: string): KSS;
     loadFromUrl(url: string, cb: (err: any, url: string) => void): void;

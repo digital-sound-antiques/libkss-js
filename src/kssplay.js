@@ -12,6 +12,7 @@
   var KSSPlay = function(rate) {
     this._kssplay = Module.ccall("KSSPLAY_new", "number", ["number", "number", "number"], [rate || 44100, 1, 16]);
     this._buffer = null;
+    this._song = 0;
   };
 
   function deviceNameToId(name) {
@@ -98,6 +99,7 @@
    * @param {KSS} kss - kss instance.
    */
   KSSPlay.prototype.setData = function(kss) {
+    this._song = kss.song;
     Module.ccall("KSSPLAY_set_data", null, ["number", "number"], [this._kssplay, kss.obj]);
   };
 
@@ -105,12 +107,17 @@
    * Resets the player.
    * @method
    * @memberof KSSPlay
-   * @param {number} [song=0] The song number to play.
+   * @param {number} [song=0|null] The song number to play. If null, song index stored in KSS object is used.
    * @param {number} [cpuSpeed=0] 0:auto, <=1: cpu speed factor.
    */
 
   KSSPlay.prototype.reset = function(song, cpuSpeed) {
-    Module.ccall("KSSPLAY_reset", null, ["number", "number", "number"], [this._kssplay, song || 0, cpuSpeed || 0]);
+    Module.ccall(
+      "KSSPLAY_reset",
+      null,
+      ["number", "number", "number"],
+      [this._kssplay, song || this._song, cpuSpeed || 0]
+    );
   };
 
   KSSPlay.prototype._ensureBufferSize = function(size) {
@@ -287,6 +294,14 @@
     );
   };
 
+  KSSPlay.prototype.writeIO = function(a, d) {
+    Module.ccall("KSSPLAY_write_io", null, ["number", "number", "number"], [this._kssplay, a, d]);
+  };
+
+  KSSPlay.prototype.writeMemory = function(a, d) {
+    Module.ccall("KSSPLAY_write_io", null, ["number", "number", "number"], [this._kssplay, a, d]);
+  };
+
   if (typeof exports === "object") {
     module.exports = KSSPlay;
   } else if (typeof define === "function" && define.amd) {
@@ -296,11 +311,3 @@
     });
   }
 })();
-
-KSSPlay.prototype.writeIO = function(a, d) {
-  Module.ccall("KSSPLAY_write_io", null, ["number", "number", "number"], [this._kssplay, a, d]);
-};
-
-KSSPlay.prototype.writeMemory = function(a, d) {
-  Module.ccall("KSSPLAY_write_io", null, ["number", "number", "number"], [this._kssplay, a, d]);
-};
