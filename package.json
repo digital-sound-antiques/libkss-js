@@ -13,7 +13,7 @@
   ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "prepublish": "npm run clean && npm run build",
+    "prepare": "npm run clean && npm run build",
     "clean": "rm-cli -ss -r lib build",
     "build": "mkdirp lib build && cd build && emcmake cmake .. && cmake --build . && cp-cli libkss.js ../lib/libkss.js",
     "jsdoc": "rm-cli -r docs ; jsdoc -c jsdoc.config.json --readme README.md",
