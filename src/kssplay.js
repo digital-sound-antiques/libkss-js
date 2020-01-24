@@ -123,6 +123,7 @@
   KSSPlay.prototype._ensureBufferSize = function(size) {
     if (this._buffer != null && this._buffer.length < size) {
       Module._free(this._buffer);
+      this._buffer = null;
     }
     if (this._buffer == null) {
       this._buffer = Module._malloc(size);
@@ -237,7 +238,10 @@
       this._iowrite_handler = null;
     }
     this._kssplay = null;
-    this._buffer = null;
+    if (this._buffer != null) {
+      Module._free(this._buffer);
+      this._buffer = null;
+    }
   };
 
   /**
