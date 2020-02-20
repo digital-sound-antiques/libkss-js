@@ -306,6 +306,16 @@
     Module.ccall("KSSPLAY_write_io", null, ["number", "number", "number"], [this._kssplay, a, d]);
   };
 
+  /**
+   * Get MGSDRV's MIB.JUMPCT
+   * @method
+   * @memberof KSSPlay
+   * @returns value of MIB.JUMPCT
+   */
+  KSSPlay.prototype.getMGSJumpCount = function() {
+    return Module.ccall("KSSPLAY_get_MGS_jump_count", null, ["number"], [this._kssplay]);
+  };
+
   if (typeof exports === "object") {
     module.exports = KSSPlay;
   } else if (typeof define === "function" && define.amd) {
