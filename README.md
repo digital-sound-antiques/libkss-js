@@ -26,7 +26,8 @@ kss.release();
 ```
 
 # How to Build
-node.js, `emcmake` and `cmake` with some proper C compiler is required.
+Required Emscripten Version: 1.39.0
+`emcmake` and `cmake` with some proper C compiler is required before npm install.
 
 ```
 git clone --recursive https://github.com/digital-sound-antiques/libkss-js.git
