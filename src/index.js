@@ -1,16 +1,17 @@
-(function() {
+(function () {
   "use strict";
 
-  var LIB = function() {};
-  LIB.KSS = require("./kss");
-  LIB.KSSPlay = require("./kssplay");
+  const m = {
+    KSS: require("./kss"),
+    KSSPlay: require("./kssplay"),
+  };
 
   if (typeof exports === "object") {
-    module.exports = LIB;
+    module.exports = m;
   } else if (typeof define === "function" && define.amd) {
     // AMD. Register as an anonymous module.
-    define(function() {
-      return LIB;
+    define(function () {
+      return m;
     });
   }
 })();

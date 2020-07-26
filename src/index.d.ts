@@ -3,12 +3,13 @@ declare module "libkss-js" {
     constructor(data: Uint8Array, name: string, song?: number);
     releaseAll(): void;
     createUniqueInstance(data: Uint8Array, name: string): KSS;
-    loadFromUrl(url: string, cb: (err: any, url: string) => void): void;
+    loadFromUrl(url: string): Promise<KSS>;
     getTitle(): string;
     release(): void;
   }
 
   class KSSPlay {
+    static initialize(): Promise<void>;
     constructor(rate: number);
     _malloc(size: number): number;
     _free(size: number): void;

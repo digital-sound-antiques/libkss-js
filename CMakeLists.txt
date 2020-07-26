@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 2.8)
 
 project(LIBKSS_JS)
 
-set(CMAKE_C_FLAGS "-O3 -Wall -s WASM=0 -s FILESYSTEM=0")
+set(CMAKE_C_FLAGS "-O3 -Wall")
 
 add_subdirectory(modules/libkss)
 
@@ -41,5 +41,5 @@ set (exported_function_list
 list(JOIN exported_function_list "','" exported_functions)
 
 if(EMSCRIPTEN)
-  set(CMAKE_EXE_LINKER_FLAGS "-s RESERVED_FUNCTION_POINTERS=16 -s MODULARIZE=1 --memory-init-file 0 -O3 -s EXPORTED_FUNCTIONS=\"['${exported_functions}']\" -s EXTRA_EXPORTED_RUNTIME_METHODS=\"['ccall', 'cwrap','addFunction','removeFunction']\"")
+  set(CMAKE_EXE_LINKER_FLAGS "-s WASM=1 -s SINGLE_FILE=1 -s FILESYSTEM=0 -s RESERVED_FUNCTION_POINTERS=16 -s MODULARIZE=1 --memory-init-file 0 -O3 -s EXPORTED_FUNCTIONS=\"['${exported_functions}']\" -s EXTRA_EXPORTED_RUNTIME_METHODS=\"['ccall','cwrap','addFunction','removeFunction']\"")
 endif()

@@ -1,32 +1,46 @@
 # libkss-js [![npm version](https://badge.fury.io/js/libkss-js.svg)](https://badge.fury.io/js/libkss-js)
 <img src="https://nodei.co/npm/libkss-js.png?downloads=true&stars=true" alt=""/>
 
+# Breaking Changes on 1.3.0
+- `KSSPlay.initialize()` must be called with await before using KSSPlay.
+- Change `KSS.loadFromUrl(url)` to return `Promise<KSS>` instead of callback.
+
 # Install
 ```
-npm install --save-dev libkss
+npm install --save libkss-js
 ```
 
 # Usage
 ```
-var KSS = require('libkss').KSS;
-var KSSPlay = require('libkss').KSSPlay;
+const { KSS, KSSPlay } = require('libkss-js');
+const { WaveFile } = require('wavefile');
+const fs = require('fs');
 
-var kssplay = new KSSPlay(44100);
-var kss = KSS.loadFromUrl('http://http://digital-sound-antiques.github.io/msxplay-js/demo/grider.mgs');
+async function main() {
+  await KSSPlay.initialize(); // must be called before using KSSPlay.
 
-kssplay.setData(kss);
-kssplay.reset();
+  const RATE = 44100;
 
-var waves = kssplay.calc(44100); // returns Int16Array of wave samples.
+  const kssplay = new KSSPlay(RATE);
+  const kss = await KSS.loadFromUrl('https://digital-sound-antiques.github.io/msxplay-js/demo/grider.mgs');
 
-// do something
+  kssplay.setData(kss);
+  kssplay.reset();
 
-kssplay.release();
-kss.release();
+  const samples = kssplay.calc(RATE * 30); // Generate 30 seconds
+  const wav = new WaveFile();
+  wav.fromScratch(1, RATE, '16', samples);
+  fs.writeFileSync('test.wav', wav.toBuffer());
+
+  kssplay.release();
+  kss.release();
+}
+
+main();
 ```
 
 # How to Build
-Required Emscripten Version: 1.39.0
+To build libkss.js, Emscripten 1.39.0 or greater is required. The latest tested version is 1.39.20.
 `emcmake` and `cmake` with some proper C compiler is required before npm install.
 
 ```

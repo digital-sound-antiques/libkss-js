@@ -554,6 +554,95 @@
             
 <hr>
 <dt>
+    <h4 class="name" id=".initialize"><span class="type-signature">&lt;static> </span>initialize()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Initialize library. Must be called with await before using KSS and KSSPlay classes.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    <p>a Promise<void> object.</p>
+</div>
+
+
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
     <h4 class="name" id=".toInt16Array"><span class="type-signature">&lt;static> </span>toInt16Array( [ptr] [, size])</h4>
     
     
@@ -1304,6 +1393,95 @@
             
 <hr>
 <dt>
+    <h4 class="name" id="getFadeFlag"><span class="type-signature"></span>getFadeFlag()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Get progress of the fading-out.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    <p>0: Not started, 1: In progress, 3: Completed.</p>
+</div>
+
+
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
     <h4 class="name" id="getLoopCount"><span class="type-signature"></span>getLoopCount()</h4>
     
     
@@ -1379,6 +1557,95 @@
             
 <div class="param-desc">
     <p>The number of the current loop counts.</p>
+</div>
+
+
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="getMGSJumpCount"><span class="type-signature"></span>getMGSJumpCount()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Get MGSDRV's MIB.JUMPCT</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    <p>value of MIB.JUMPCT</p>
 </div>
 
 
@@ -1635,12 +1902,12 @@
             
                 <td class="default">
                 
-                    0
+                    0|null
                 
                 </td>
             
 
-            <td class="description last"><p>The song number to play.</p></td>
+            <td class="description last"><p>The song number to play. If null, song index stored in KSS object is used.</p></td>
         </tr>
 
     
