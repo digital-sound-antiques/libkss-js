@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 2.8)
 
 project(LIBKSS_JS)
 
-set(CMAKE_C_FLAGS "-O3 -Wall -s WASM=0")
+set(CMAKE_C_FLAGS "-O3 -Wall -s WASM=0 -s FILESYSTEM=0")
 
 add_subdirectory(modules/libkss)
 
