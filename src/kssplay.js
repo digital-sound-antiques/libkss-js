@@ -80,7 +80,7 @@
      * @method
      * @memberof KSSPlay
      * @param {number} [song=0|null] The song number to play. If null, song index stored in KSS object is used.
-     * @param {number} [cpuSpeed=0] 0:auto, <=1: cpu speed factor.
+     * @param {number} [cpuSpeed=0] 0:AUTO, 1:3.58MHz 2:5.38MHz 3:7.16MHz 4:14.32MHz 5:28.64MHz
      */
     reset(song, cpuSpeed) {
       getModule().ccall(
