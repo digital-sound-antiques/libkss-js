@@ -40,7 +40,7 @@ main();
 ```
 
 # How to Build
-To build libkss.js, Emscripten 1.39.0 or greater is required. The latest tested version is 1.39.20.
+To build libkss.js, Emscripten 1.39.0 or greater is required. The latest tested version is 2.0.13.
 `emcmake` and `cmake` with some proper C compiler is required before npm install.
 
 ```
