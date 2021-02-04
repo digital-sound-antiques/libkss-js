@@ -1,6 +1,6 @@
 {
   "name": "libkss-js",
-  "version": "1.3.2",
+  "version": "1.3.3",
   "description": "KSS player library for Javascript",
   "main": "src/index.js",
   "types": "src/index.d.ts",
@@ -15,7 +15,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "prepare": "npm run clean && npm run build",
     "clean": "rm-cli -ss -r lib build",
-    "build": "mkdirp lib build && cd build && emcmake cmake .. && cmake --build . && cp-cli libkss.js ../lib/libkss.js",
+    "build": "mkdirp lib build && cd build && emcmake cmake .. && cmake --build . && cpy libkss.js ../lib/libkss.js",
     "jsdoc": "rm-cli -r docs ; jsdoc -c jsdoc.config.json --readme README.md",
     "lint": "eslint src"
   },
@@ -23,7 +23,6 @@
   "author": "Mitsutaka Okazaki",
   "license": "ISC",
   "devDependencies": {
-    "cp-cli": "^2.0.0",
     "eslint": "^5.16.0",
     "eslint-config-prettier": "^6.4.0",
     "eslint-plugin-prettier": "^3.1.1",
@@ -35,6 +34,7 @@
     "wavefile": "^11.0.0"
   },
   "dependencies": {
+    "cpy-cli": "^3.1.1",
     "encoding-japanese": "^1.0.26",
     "node-fetch": "^2.6.0"
   },
