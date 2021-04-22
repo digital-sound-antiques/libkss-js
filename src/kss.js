@@ -5,7 +5,6 @@
   const encoding = require("encoding-japanese");
   const crypto = require("crypto");
   const alg = "sha1";
-  const fetch = require("node-fetch");
 
   /**
    * Create a new KSS object.
@@ -29,6 +28,7 @@
         throw new Error("Can't create KSS object.");
       }
       this.song = song;
+      this.data = data;
       getModule()._free(buf);
     }
     /**
@@ -110,19 +110,6 @@
       }
 
       return kss;
-    }
-
-    /**
-     * Load KSS file from URL.
-     * @param {string} url
-     * @memberof KSS
-     * @returns A promise for KSS instance.
-     * @static
-     */
-    static loadFromUrl(url) {
-      return fetch(url)
-        .then((res) => res.arrayBuffer())
-        .then((ab) => KSS.createUniqueInstance(new Uint8Array(ab), url))
     }
   }
 
