@@ -87,7 +87,7 @@
       song = song || 0;
       const hash = sha1.create();
       hash.update(data);
-      const hashHex = alg + ":" + hash.hex() + ":" + song;
+      const hashHex = "sha1:" + hash.hex() + ":" + song;
 
       let kss = KSS.hashMap[hashHex];
       if (kss) {
