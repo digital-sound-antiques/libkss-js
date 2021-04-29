@@ -3,8 +3,7 @@
 
   const { getModule } = require("./module");
   const encoding = require("encoding-japanese");
-  const crypto = require("crypto");
-  const alg = "sha1";
+  const sha1 = require("js-sha1");
 
   /**
    * Create a new KSS object.
@@ -86,9 +85,9 @@
      */
     static createUniqueInstance(data, filename, song) {
       song = song || 0;
-      const hash = crypto.createHash(alg);
+      const hash = sha1.create();
       hash.update(data);
-      const hashHex = alg + ":" + hash.digest("hex") + ":" + song;
+      const hashHex = alg + ":" + hash.hex() + ":" + song;
 
       let kss = KSS.hashMap[hashHex];
       if (kss) {
