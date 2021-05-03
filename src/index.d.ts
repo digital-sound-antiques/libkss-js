@@ -6,6 +6,7 @@ declare module "libkss-js" {
     loadFromUrl(url: string): Promise<KSS>;
     getTitle(): string;
     release(): void;
+    data: Uint8Array;
   }
 
   class KSSPlay {
@@ -21,9 +22,10 @@ declare module "libkss-js" {
     calcSilent(samples: number): void;
     getLoopCount(): number;
     getFadeFlag(): number;
-    setSilentLimit(): number;
-    fadeStart(): void;
+    setSilentLimit(time: number): number;
+    fadeStart(duration: number): void;
     getStopFlag(): number;
+    getMGSJumpCount(): number;
     setRCF(r: number, c: number): void;
     release(): void;
     setIOWriteHandler(cb: (context: KSSPlay, a: number, d: number) => void): void;
