@@ -1,6 +1,6 @@
 {
   "name": "libkss-js",
-  "version": "1.4.2",
+  "version": "1.4.3",
   "description": "KSS player library for Javascript",
   "main": "src/index.js",
   "types": "src/index.d.ts",
@@ -34,7 +34,7 @@
     "rm-cli": "^1.4.2"
   },
   "dependencies": {
-    "encoding-japanese": "^1.0.26",
+    "encoding-japanese": "^1.0.30",
     "js-sha1": "^0.6.0",
     "wavefile": "^11.0.0"
   },
