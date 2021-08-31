@@ -1,9 +1,20 @@
 # libkss-js [![npm version](https://badge.fury.io/js/libkss-js.svg)](https://badge.fury.io/js/libkss-js)
 <img src="https://nodei.co/npm/libkss-js.png?downloads=true&stars=true" alt=""/>
 
+# Breaking Changes on 1.4.0
+`KSS.loadFromUrl(url)` is removed in order to eliminate dependence on `fetch` API. 
+Use the following code instead if required.
+
+```
+async function loadKSSFromUrl(url) {
+  const res = await fetch(url);
+  const ab = await res.arrayBuffer();
+  return KSS.createUniqueInstance(new Uint8Array(ab), url);
+}
+```
+
 # Breaking Changes on 1.3.0
-- `KSSPlay.initialize()` must be called with await before using KSSPlay.
-- Change `KSS.loadFromUrl(url)` to return `Promise<KSS>` instead of callback.
+`KSSPlay.initialize()` must be called with await before using KSSPlay.
 
 # Install
 ```
