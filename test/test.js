@@ -1,6 +1,13 @@
 const { KSS, KSSPlay } = require('../src/index');
 const { WaveFile } = require('wavefile');
 const fs = require('fs');
+const fetch = require('node-fetch');
+
+async function loadKSSFromUrl(url) {
+  const res = await fetch(url);
+  const ab = await res.arrayBuffer();
+  return KSS.createUniqueInstance(new Uint8Array(ab), url);
+}
 
 async function main() {
   await KSSPlay.initialize(); // must be called before using KSSPlay.
@@ -8,7 +15,7 @@ async function main() {
   const RATE = 44100;
 
   const kssplay = new KSSPlay(RATE);
-  const kss = await KSS.loadFromUrl('https://digital-sound-antiques.github.io/msxplay-js/demo/grider.mgs');
+  const kss = await loadKSSFromUrl('https://digital-sound-antiques.github.io/msxplay-js/demo/grider.mgs');
 
   kssplay.setData(kss);
   kssplay.reset();

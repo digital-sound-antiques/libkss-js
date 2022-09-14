@@ -27,6 +27,12 @@ const { KSS, KSSPlay } = require('libkss-js');
 const { WaveFile } = require('wavefile');
 const fs = require('fs');
 
+async function loadKSSFromUrl(url) {
+  const res = await fetch(url);
+  const ab = await res.arrayBuffer();
+  return KSS.createUniqueInstance(new Uint8Array(ab), url);
+}
+
 async function main() {
   await KSSPlay.initialize(); // must be called before using KSSPlay.
 
@@ -51,7 +57,7 @@ main();
 ```
 
 # How to Build
-To build libkss.js, Emscripten 1.39.0 or greater is required. The latest tested version is 2.0.13.
+To build libkss.js, Emscripten 2.0.0 or greater is required. The latest tested version is 3.1.21.
 `emcmake` and `cmake` with some proper C compiler is required before npm install.
 
 ```
