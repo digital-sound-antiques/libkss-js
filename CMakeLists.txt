@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 2.8)
+cmake_minimum_required(VERSION 3.0)
 
 project(LIBKSS_JS)
 
@@ -38,8 +38,8 @@ set (exported_function_list
   _free
 )
 
-list(JOIN exported_function_list "','" exported_functions)
+list(JOIN exported_function_list "," exported_functions)
 
 if(EMSCRIPTEN)
-  set(CMAKE_EXE_LINKER_FLAGS "-s WASM=1 -s SINGLE_FILE=1 -s FILESYSTEM=0 -s RESERVED_FUNCTION_POINTERS=16 -s MODULARIZE=1 --memory-init-file 0 -O3 -s EXPORTED_FUNCTIONS=\"['${exported_functions}']\" -s EXTRA_EXPORTED_RUNTIME_METHODS=\"['ccall','cwrap','addFunction','removeFunction']\"")
+  set(CMAKE_EXE_LINKER_FLAGS "-s WASM=1 -s SINGLE_FILE=1 -s FILESYSTEM=0 -s RESERVED_FUNCTION_POINTERS=16 -s MODULARIZE=1 --memory-init-file 0 -O3 -s EXPORTED_FUNCTIONS=\"[${exported_functions}]\" -s EXPORTED_RUNTIME_METHODS=\"[ccall,cwrap,addFunction,removeFunction]\"")
 endif()
