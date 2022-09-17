@@ -7,6 +7,7 @@ declare module "libkss-js" {
     getTitle(): string;
     release(): void;
     data: Uint8Array;
+    toVGM(options?: { time: number, song: number, loop: number, volume: number }): Uint8Array;
   }
 
   class KSSPlay {

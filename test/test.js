@@ -10,16 +10,20 @@ async function loadKSSFromUrl(url) {
 }
 
 async function main() {
-  await KSSPlay.initialize(); // must be called before using KSSPlay.
+  await KSSPlay.initialize(); // must be called before using KSSPlay and KSS objects.
 
   const RATE = 44100;
 
   const kssplay = new KSSPlay(RATE);
   const kss = await loadKSSFromUrl('https://digital-sound-antiques.github.io/msxplay-js/demo/grider.mgs');
 
+  // toVGM
+  const vgm = kss.toVGM({duration: 30 * 000}); // Generate 30 seconds
+  fs.writeFileSync('test.vgm', vgm);
+
+  // toWAV
   kssplay.setData(kss);
   kssplay.reset();
-
   const samples = kssplay.calc(RATE * 30); // Generate 30 seconds
   const wav = new WaveFile();
   wav.fromScratch(1, RATE, '16', samples);

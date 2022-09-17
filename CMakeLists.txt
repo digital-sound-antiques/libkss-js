@@ -36,6 +36,12 @@ set (exported_function_list
   _KSS_bin2kss
   _malloc
   _free
+  _KSS2VGM_new
+  _KSS2VGM_kss2vgm
+  _KSS2VGM_delete
+  _KSS2VGM_Result_delete
+  _KSS2VGM_Result_vgm_ptr
+  _KSS2VGM_Result_vgm_size
 )
 
 list(JOIN exported_function_list "," exported_functions)

@@ -38,7 +38,7 @@
      */
     getTitle() {
       const ptr = getModule().ccall("KSS_get_title", "number", ["number"], [this.obj]);
-      let i =0;
+      let i = 0;
       for (i = 0; i < 256; i++) {
         if (getModule().HEAPU8[ptr + i] == 0)
           break;
@@ -109,6 +109,34 @@
       }
 
       return kss;
+    }
+
+    /**
+     * Convert KSS to VGM
+     * @param {number} options.duration maximum play time in milliseconds (default: 300000)
+     * @param {number} options.song song number (default: 0)
+     * @param {number} options.loop maximum loop count (default: 2)
+     * @param {number} options.volume VGM volume multiplier (default: 0)
+     * @returns A Uint8Array that contains VGM data.
+     * @memberof KSS
+     * @static
+     */
+    toVGM(options) {
+
+      const opts = options || {};
+      const duration = opts.duration || 300 * 1000;
+      const song = opts.song || 0;
+      const loop = opts.loop || 2;
+      const volume = opts.volume || 0;
+
+      const kss2vgm = getModule().ccall("KSS2VGM_new", null, ["number", "number"]);
+      const result = getModule().ccall("KSS2VGM_kss2vgm", null, ["number", "number", "number", "number", "number", "number"], [kss2vgm, this.obj, duration, song, loop, volume]);
+      const vgmPtr = getModule().ccall("KSS2VGM_Result_vgm_ptr", null, ["number"], [result]);
+      const vgmSize = getModule().ccall("KSS2VGM_Result_vgm_size", null, ["number"], [result]);
+      const vgm = new Uint8Array(getModule().HEAPU8.buffer, vgmPtr, vgmSize).slice();
+      getModule().ccall("KSS2VGM_delete", null, ["number"], [kss2vgm]);
+      getModule().ccall("KSS2VGM_Result_delete", null, ["number"], [result]);
+      return vgm;
     }
   }
 
