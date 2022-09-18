@@ -18,7 +18,7 @@ async function main() {
   const kss = await loadKSSFromUrl('https://digital-sound-antiques.github.io/msxplay-js/demo/grider.mgs');
 
   // toVGM
-  const vgm = kss.toVGM({duration: 30 * 000}); // Generate 30 seconds
+  const vgm = kss.toVGM({ duration: 30 * 000 }); // Generate 30 seconds
   fs.writeFileSync('test.vgm', vgm);
 
   // toWAV

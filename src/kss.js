@@ -112,11 +112,20 @@
     }
 
     /**
+     * @callback KSS~toVGMProgressCallback
+     * @param {number} progress
+     * @param {number} total
+     * @returns {number} 0 to continue the process, otherwise the process will be aborted.
+     */
+    /**
      * Convert KSS to VGM
      * @param {number} options.duration maximum play time in milliseconds (default: 300000)
      * @param {number} options.song song number (default: 0)
      * @param {number} options.loop maximum loop count (default: 2)
      * @param {number} options.volume VGM volume multiplier (default: 0)
+     * @param {KSS~toVGMProgressCallback} options.callback 
+     *    callback to monitor the progress of the process. 
+     *    If this function returns non-zero value, the process will be aborted.
      * @returns A Uint8Array that contains VGM data.
      * @memberof KSS
      * @static
@@ -129,13 +138,37 @@
       const loop = opts.loop || 2;
       const volume = opts.volume || 0;
 
-      const kss2vgm = getModule().ccall("KSS2VGM_new", null, ["number", "number"]);
-      const result = getModule().ccall("KSS2VGM_kss2vgm", null, ["number", "number", "number", "number", "number", "number"], [kss2vgm, this.obj, duration, song, loop, volume]);
-      const vgmPtr = getModule().ccall("KSS2VGM_Result_vgm_ptr", null, ["number"], [result]);
-      const vgmSize = getModule().ccall("KSS2VGM_Result_vgm_size", null, ["number"], [result]);
+      let callback = 0;
+
+      if (options.callback != null) {
+        callback = getModule().addFunction((a, b) => options.callback(a, b) || 0, "iii");
+      }
+
+      const kss2vgm = getModule().ccall("KSS2VGM_new", 'number');
+
+      const result = getModule().ccall(
+        "KSS2VGM_kss2vgm",
+        'number',
+        ["number", "number", "number", "number", "number", "number", "number"],
+        [kss2vgm, this.obj, duration, song, loop, volume, callback]
+      );
+
+      if (result == 0) {
+        return null;
+      }
+
+      const vgmPtr = getModule().ccall("KSS2VGM_Result_vgm_ptr", 'number', ["number"], [result]);
+      const vgmSize = getModule().ccall("KSS2VGM_Result_vgm_size", 'number', ["number"], [result]);
+
       const vgm = new Uint8Array(getModule().HEAPU8.buffer, vgmPtr, vgmSize).slice();
+
       getModule().ccall("KSS2VGM_delete", null, ["number"], [kss2vgm]);
       getModule().ccall("KSS2VGM_Result_delete", null, ["number"], [result]);
+
+      if (callback != 0) {
+        getModule().removeFunction(callback);
+      }
+
       return vgm;
     }
   }
