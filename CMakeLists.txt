@@ -38,6 +38,9 @@ set (exported_function_list
   _free
   _KSS2VGM_new
   _KSS2VGM_kss2vgm
+  _KSS2VGM_setup
+  _KSS2VGM_process
+  _KSS2VGM_get_result
   _KSS2VGM_delete
   _KSS2VGM_Result_delete
   _KSS2VGM_Result_vgm_ptr

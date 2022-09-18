@@ -798,7 +798,7 @@
             
 <hr>
 <dt>
-    <h4 class="name" id="toVGM"><span class="type-signature"></span>toVGM()</h4>
+    <h4 class="name" id="toVGM"><span class="type-signature"></span>toVGM(options)</h4>
     
     
 </dt>
@@ -806,7 +806,7 @@
 
     
     <div class="description">
-        <p>Convert KSS to VGM</p>
+        <p>Convert KSS to VGM (blocking)</p>
     </div>
     
 
@@ -829,6 +829,8 @@
         <th>Type</th>
 
         
+        <th>Argument</th>
+        
 
         
 
@@ -841,7 +843,64 @@
 
         <tr>
             
-                <td class="name"><code>options.duration</code></td>
+                <td class="name"><code>options</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+                    &lt;nullable><br>
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">
+                <h6 class="method-params-label method-subparams-label">Properties</h6>
+                
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Argument</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>duration</code></td>
             
 
             <td class="type">
@@ -855,17 +914,33 @@
             </td>
 
             
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
 
+                
+
+                
+                </td>
             
 
-            <td class="description last"><p>maximum play time in milliseconds (default: 300000)</p></td>
+            
+                <td class="default">
+                
+                    300000
+                
+                </td>
+            
+
+            <td class="description last"><p>maximum play time in milliseconds.</p></td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>options.song</code></td>
+                <td class="name"><code>song</code></td>
             
 
             <td class="type">
@@ -879,17 +954,33 @@
             </td>
 
             
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
 
+                
+
+                
+                </td>
             
 
-            <td class="description last"><p>song number (default: 0)</p></td>
+            
+                <td class="default">
+                
+                    0
+                
+                </td>
+            
+
+            <td class="description last"><p>song number.</p></td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>options.loop</code></td>
+                <td class="name"><code>loop</code></td>
             
 
             <td class="type">
@@ -903,17 +994,33 @@
             </td>
 
             
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
 
+                
+
+                
+                </td>
             
 
-            <td class="description last"><p>maximum loop count (default: 2)</p></td>
+            
+                <td class="default">
+                
+                    2
+                
+                </td>
+            
+
+            <td class="description last"><p>maximum loop count.</p></td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>options.volume</code></td>
+                <td class="name"><code>volume</code></td>
             
 
             <td class="type">
@@ -927,35 +1034,33 @@
             </td>
 
             
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
 
+                
+
+                
+                </td>
             
 
-            <td class="description last"><p>VGM volume multiplier (default: 0)</p></td>
+            
+                <td class="default">
+                
+                    0
+                
+                </td>
+            
+
+            <td class="description last"><p>VGM volume multiplier. See VGM specification for detail.</p></td>
         </tr>
 
     
+    </tbody>
+</table>
 
-        <tr>
-            
-                <td class="name"><code>options.callback</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="KSS.html#~toVGMProgressCallback">KSS~toVGMProgressCallback</a></span>
-
-
-
-            
             </td>
-
-            
-
-            
-
-            <td class="description last"><p>callback to monitor the progress of the process.
-If this function returns non zero value, the process will be aborted.</p></td>
         </tr>
 
     
@@ -1019,10 +1124,417 @@ If this function returns non zero value, the process will be aborted.</p></td>
     
             
 <div class="param-desc">
-    <p>A Uint8Array that contains VGM data.</p>
+    <p>VGM data.</p>
 </div>
 
 
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Uint8Array</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="toVGMAsync"><span class="type-signature">&lt;async> </span>toVGMAsync(options)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Convert KSS to VGM (non-blocking)</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Argument</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>options</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+                    &lt;nullable><br>
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">
+                <h6 class="method-params-label method-subparams-label">Properties</h6>
+                
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Argument</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>duration</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    300000
+                
+                </td>
+            
+
+            <td class="description last"><p>maximum play time in milliseconds.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>song</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    0
+                
+                </td>
+            
+
+            <td class="description last"><p>song number</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>loop</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    2
+                
+                </td>
+            
+
+            <td class="description last"><p>maximum loop count.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>volume</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    0
+                
+                </td>
+            
+
+            <td class="description last"><p>VGM volume multiplier. See VGM specification for detail.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>callback</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="KSS.html#~VGMProgressCallback">KSS~VGMProgressCallback</a></span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    null
+                
+                </td>
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    <p>Promise for VGM data or null if the conversion process is aborted.</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise.&lt;(Uint8Array|null)></span>
+
+
+
+    </dd>
+</dl>
 
 
         
@@ -1040,7 +1552,7 @@ If this function returns non zero value, the process will be aborted.</p></td>
                 
 <hr>
 <dt>
-    <h4 class="name" id="~toVGMProgressCallback"><span class="type-signature"></span>toVGMProgressCallback(progress, total)</h4>
+    <h4 class="name" id="~VGMProgressCallback"><span class="type-signature"></span>VGMProgressCallback(progress, total)</h4>
     
     
 </dt>
@@ -1096,7 +1608,7 @@ If this function returns non zero value, the process will be aborted.</p></td>
 
             
 
-            <td class="description last"></td>
+            <td class="description last"><p>progress (time in ms).</p></td>
         </tr>
 
     
@@ -1120,7 +1632,7 @@ If this function returns non zero value, the process will be aborted.</p></td>
 
             
 
-            <td class="description last"></td>
+            <td class="description last"><p>total (time in ms) that is similar to the given duration option parameter for toVGMAsync().</p></td>
         </tr>
 
     
@@ -1184,7 +1696,7 @@ If this function returns non zero value, the process will be aborted.</p></td>
     
             
 <div class="param-desc">
-    <p>0 to continue the process, otherwise the process will be aborted.</p>
+    <p>Non-zero to abort the process. Otherwise the process will be continued.</p>
 </div>
 
 

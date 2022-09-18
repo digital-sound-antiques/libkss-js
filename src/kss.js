@@ -112,65 +112,112 @@
     }
 
     /**
-     * @callback KSS~toVGMProgressCallback
-     * @param {number} progress
-     * @param {number} total
-     * @returns {number} 0 to continue the process, otherwise the process will be aborted.
+     * @callback KSS~VGMProgressCallback
+     * @param {number} progress progress (time in ms).
+     * @param {number} total    total (time in ms) that is similar to the given duration option parameter for toVGMAsync().
+     * @returns {number} Non-zero to abort the process. Otherwise the process will be continued.
      */
+
     /**
-     * Convert KSS to VGM
-     * @param {number} options.duration maximum play time in milliseconds (default: 300000)
-     * @param {number} options.song song number (default: 0)
-     * @param {number} options.loop maximum loop count (default: 2)
-     * @param {number} options.volume VGM volume multiplier (default: 0)
-     * @param {KSS~toVGMProgressCallback} options.callback 
-     *    callback to monitor the progress of the process. 
-     *    If this function returns non-zero value, the process will be aborted.
-     * @returns A Uint8Array that contains VGM data.
+     * Convert KSS to VGM (non-blocking)
+     * 
+     * @param {?Object} options
+     * @param {number} [options.duration=300000] maximum play time in milliseconds.
+     * @param {number} [options.song=0] song number 
+     * @param {number} [options.loop=2] maximum loop count.
+     * @param {number} [options.volume=0] VGM volume multiplier. See VGM specification for detail.
+     * @param {KSS~VGMProgressCallback} [options.callback=null]
+     * @returns {Promise<(Uint8Array|null)>} Promise for VGM data or null if the conversion process is aborted.
      * @memberof KSS
-     * @static
      */
-    toVGM(options) {
+    async toVGMAsync(options) {
+      const { duration, song, loop, volume, callback } = _buildVGMOptions(options);
+      const kss2vgm = getModule().ccall("KSS2VGM_new", 'number');
 
-      const opts = options || {};
-      const duration = opts.duration || 300 * 1000;
-      const song = opts.song || 0;
-      const loop = opts.loop || 2;
-      const volume = opts.volume || 0;
+      getModule().ccall(
+        "KSS2VGM_setup",
+        null,
+        ["number", "number", "number", "number", "number", "number"],
+        [kss2vgm, this.obj, duration, song, loop, volume]
+      );
 
-      let callback = 0;
+      let result;
 
-      if (options.callback != null) {
-        callback = getModule().addFunction((a, b) => options.callback(a, b) || 0, "iii");
+
+      let progress = 0, completed = 0;
+      while (completed == 0) {
+        completed = getModule().ccall("KSS2VGM_process", "number", ["number"], [kss2vgm]);
+        progress += 1000;
+        if (callback != null) {
+          if (callback(progress, duration)) {
+            break;
+          };
+        }
+        await new Promise((resolve) => setTimeout(resolve, 0));
       }
 
+      let vgm;
+
+      if (completed) {
+        result = getModule().ccall("KSS2VGM_get_result", "number", ["number"], [kss2vgm]);
+        vgm = _buildVGMResult(result);
+      }
+
+      getModule().ccall("KSS2VGM_delete", null, ["number"], [kss2vgm]);
+      getModule().ccall("KSS2VGM_Result_delete", null, ["number"], [result]);
+
+      return vgm;
+    }
+
+    /**
+     * Convert KSS to VGM (blocking)
+     * 
+     * @param {?Object} options
+     * @param {number} [options.duration=300000] maximum play time in milliseconds.
+     * @param {number} [options.song=0] song number.
+     * @param {number} [options.loop=2] maximum loop count.
+     * @param {number} [options.volume=0] VGM volume multiplier. See VGM specification for detail.
+     * @returns {Uint8Array} VGM data.
+     * @memberof KSS
+     */
+    toVGM(options) {
+      const { duration, song, loop, volume } = _buildVGMOptions(options);
       const kss2vgm = getModule().ccall("KSS2VGM_new", 'number');
 
       const result = getModule().ccall(
         "KSS2VGM_kss2vgm",
         'number',
-        ["number", "number", "number", "number", "number", "number", "number"],
-        [kss2vgm, this.obj, duration, song, loop, volume, callback]
+        ["number", "number", "number", "number", "number", "number"],
+        [kss2vgm, this.obj, duration, song, loop, volume]
       );
 
-      if (result == 0) {
-        return null;
-      }
-
-      const vgmPtr = getModule().ccall("KSS2VGM_Result_vgm_ptr", 'number', ["number"], [result]);
-      const vgmSize = getModule().ccall("KSS2VGM_Result_vgm_size", 'number', ["number"], [result]);
-
-      const vgm = new Uint8Array(getModule().HEAPU8.buffer, vgmPtr, vgmSize).slice();
+      const vgm = _buildVGMResult(result);
 
       getModule().ccall("KSS2VGM_delete", null, ["number"], [kss2vgm]);
       getModule().ccall("KSS2VGM_Result_delete", null, ["number"], [result]);
 
-      if (callback != 0) {
-        getModule().removeFunction(callback);
-      }
-
       return vgm;
     }
+  }
+
+  function _buildVGMResult(resultPtr) {
+    if (resultPtr != 0) {
+      const vgmPtr = getModule().ccall("KSS2VGM_Result_vgm_ptr", 'number', ["number"], [resultPtr]);
+      const vgmSize = getModule().ccall("KSS2VGM_Result_vgm_size", 'number', ["number"], [resultPtr]);
+      return new Uint8Array(getModule().HEAPU8.buffer, vgmPtr, vgmSize).slice();
+    }
+    return null;
+  }
+
+  function _buildVGMOptions(options) {
+    const opts = options || {};
+    return {
+      duration: opts.duration || 300 * 1000,
+      song: opts.song || 0,
+      loop: opts.loop || 2,
+      volume: opts.volume || 0,
+      callback: opts.callback,
+    };
   }
 
   KSS.hashMap = {};
