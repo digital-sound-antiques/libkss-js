@@ -1,13 +1,13 @@
 {
   "name": "libkss-js",
-  "version": "1.6.3",
+  "version": "1.6.4",
   "description": "KSS player library for Javascript",
   "main": "src/index.js",
   "types": "src/index.d.ts",
   "files": [
     "README.md",
     "package.json",
-    "LICENSE",
+    "LICENSE.md",
     "src",
     "lib"
   ],
@@ -44,6 +44,6 @@
     "url": "https://github.com/digital-sound-antiques/libkss-js.git"
   },
   "engines": {
-    "node": ">=10"
+    "node": "^12.20.0 || ^14.13.1 || >=16.0.0"
   }
 }
