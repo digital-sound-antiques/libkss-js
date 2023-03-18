@@ -1,7 +1,8 @@
-const { KSS, KSSPlay } = require('../src/index');
-const { WaveFile } = require('wavefile');
-const fs = require('fs');
-const fetch = require('node-fetch');
+import { KSS, KSSPlay } from '../dist/index.js';
+import wavefile from 'wavefile';
+const { WaveFile } = wavefile;
+import fs from 'fs';
+import fetch from 'node-fetch';
 
 async function loadKSSFromUrl(url) {
   const res = await fetch(url);

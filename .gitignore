@@ -1,3 +1,7 @@
-lib
+lib/libkss.js
 node_modules
 build
+dist
+*.vgm
+*.wav
+*.kss
