@@ -37,6 +37,7 @@
     constructor(rate) {
       this._kssplay = getModule().ccall("KSSPLAY_new", "number", ["number", "number", "number"], [rate || 44100, 1, 16]);
       this._buffer = null;
+      this._bufferSize = 0;
       this._song = 0;
     }
 
@@ -91,12 +92,14 @@
       );
     }
     _ensureBufferSize(size) {
-      if (this._buffer != null && this._buffer.length < size) {
+      if (this._buffer != null && this._bufferSize < size) {
         getModule()._free(this._buffer);
         this._buffer = null;
+        this._bufferSize = 0;
       }
       if (this._buffer == null) {
         this._buffer = getModule()._malloc(size);
+        this._bufferSize = size;
       }
     }
     /**
