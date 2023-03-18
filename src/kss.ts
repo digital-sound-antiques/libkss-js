@@ -63,14 +63,17 @@ export class KSS {
    * 
    * @returns The title string if exists.
    */
-  getTitle() {
+  getTitle(): string {
     const ptr = getModule().ccall("KSS_get_title", "number", ["number"], [this.obj]);
     let i = 0;
     for (i = 0; i < 256; i++) {
       if (getModule().HEAPU8[ptr + i] == 0)
         break;
     }
-    return encoding.convert(new Uint8Array(getModule().HEAPU8.buffer, ptr, i), { to: "UNICODE", from: "SJIS" });
+    return encoding.convert(
+      new Uint8Array(getModule().HEAPU8.buffer, ptr, i),
+      { type: "string", to: "UNICODE", from: "SJIS" }
+    );
   }
 
   /**
