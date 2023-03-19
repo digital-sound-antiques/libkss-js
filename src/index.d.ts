@@ -7,7 +7,7 @@ declare module "libkss-js" {
     getTitle(): string;
     release(): void;
     data: Uint8Array;
-    async toVGMAsync(options?: { duration: number, song: number, loop: number, volume: number, callback: (progress: number, total: number) => number }): Promise<Uint8Array>;
+    toVGMAsync(options?: { duration: number, song: number, loop: number, volume: number, callback: (progress: number, total: number) => number }): Promise<Uint8Array>;
     toVGM(options?: { duration: number, song: number, loop: number, volume: number }): Uint8Array;
   }
 
