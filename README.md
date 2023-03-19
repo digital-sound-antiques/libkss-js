@@ -71,4 +71,4 @@ npm run build
 ```
 
 ## API Document
-https://digital-sound-antiques.github.io/libkss-js/
+https://digital-sound-antiques.github.io/libkss-js/api/

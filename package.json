@@ -21,7 +21,7 @@
     "build:all": "npm run build:emscripten && npm run build",
     "build:emscripten": "mkdirp build && cd build && emcmake cmake .. && cmake --build . && cpy libkss.js ../lib/",
     "build": "tsc",
-    "doc": "rm-cli -ss -r docs ; typedoc"
+    "doc": "rm-cli -ss -r docs/api ; typedoc"
   },
   "keywords": [],
   "author": "Mitsutaka Okazaki",
