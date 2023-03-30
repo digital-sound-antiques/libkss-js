@@ -1,7 +1,7 @@
-import { initModule, getModule } from './module.js';
-import { KSS } from './kss.js';
+import { initModule, getModule } from "./module.js";
+import { KSS } from "./kss.js";
 
-type DeviceName = 'psg' | 'scc' | 'opll' | 'opl';
+type DeviceName = "psg" | "scc" | "opll" | "opl";
 
 function deviceNameToId(name: DeviceName): number {
   if (name === "psg") {
@@ -68,7 +68,12 @@ export class KSSPlay {
    * @param rate - playback sample rate.
    */
   constructor(rate: number = 44100) {
-    this._kssplay = getModule().ccall("KSSPLAY_new", "number", ["number", "number", "number"], [rate, 1, 16]);
+    this._kssplay = getModule().ccall(
+      "KSSPLAY_new",
+      "number",
+      ["number", "number", "number"],
+      [rate, 1, 16]
+    );
   }
 
   /**
@@ -76,7 +81,7 @@ export class KSSPlay {
    * @param params
    */
   setDeviceQuality(params: DeviceQualityParams = {}) {
-    const names: Array<DeviceName> = ['psg', 'scc', 'opll', 'opl'];
+    const names: Array<DeviceName> = ["psg", "scc", "opll", "opl"];
     for (const key of names) {
       const devId = deviceNameToId(key);
       const quality = params[key] ?? 0;
@@ -138,7 +143,12 @@ export class KSSPlay {
    * @param samples - number of samples to render.
    */
   calcToBuffer(buffer: ObjectPtr, samples: number) {
-    getModule().ccall("KSSPLAY_calc", null, ["number", "number", "number"], [this._kssplay, buffer, samples]);
+    getModule().ccall(
+      "KSSPLAY_calc",
+      null,
+      ["number", "number", "number"],
+      [this._kssplay, buffer, samples]
+    );
   }
   /**
    * Calculate specified length without rendering wave.
@@ -166,7 +176,12 @@ export class KSSPlay {
    * @param time - maximum silent span in millis.
    */
   setSilentLimit(time: number) {
-    getModule().ccall("KSSPLAY_set_silent_limit", null, ["number", "number"], [this._kssplay, time]);
+    getModule().ccall(
+      "KSSPLAY_set_silent_limit",
+      null,
+      ["number", "number"],
+      [this._kssplay, time]
+    );
   }
   /**
    * Starts the fade-out.
@@ -188,7 +203,12 @@ export class KSSPlay {
    * @param c - Capacitor (nF)
    */
   setRCF(r: number, c: number) {
-    return getModule().ccall("KSSPLAY_set_rcf", null, ["number", "number", "number"], [this._kssplay, r, c]);
+    return getModule().ccall(
+      "KSSPLAY_set_rcf",
+      null,
+      ["number", "number", "number"],
+      [this._kssplay, r, c]
+    );
   }
 
   /**
@@ -253,7 +273,12 @@ export class KSSPlay {
    * @param d - data
    */
   writeIO(a: number, d: number): void {
-    getModule().ccall("KSSPLAY_write_io", null, ["number", "number", "number"], [this._kssplay, a, d]);
+    getModule().ccall(
+      "KSSPLAY_write_io",
+      null,
+      ["number", "number", "number"],
+      [this._kssplay, a, d]
+    );
   }
 
   /**
@@ -262,7 +287,12 @@ export class KSSPlay {
    * @param d - data
    */
   writeMemory(a: number, d: number): void {
-    getModule().ccall("KSSPLAY_write_io", null, ["number", "number", "number"], [this._kssplay, a, d]);
+    getModule().ccall(
+      "KSSPLAY_write_io",
+      null,
+      ["number", "number", "number"],
+      [this._kssplay, a, d]
+    );
   }
 
   /**
@@ -300,4 +330,3 @@ export class KSSPlay {
     return new Int16Array(getModule().HEAPU8.buffer, ptr, size);
   }
 }
-

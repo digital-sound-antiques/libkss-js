@@ -51,7 +51,7 @@ list(JOIN exported_function_list "," exported_functions)
 
 set (linker_flag_list
   -O3 
-  -sEXPORT_ES6=1 
+#  -sEXPORT_ES6=1
   -sSINGLE_FILE=1 
   -sFILESYSTEM=0 
   -sRESERVED_FUNCTION_POINTERS=16 
