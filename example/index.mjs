@@ -1,4 +1,4 @@
-import { KSS, KSSPlay } from "../dist/index.js";
+import { KSS, KSSPlay } from "libkss-js";
 import wavefile from "wavefile";
 
 const { WaveFile } = wavefile;

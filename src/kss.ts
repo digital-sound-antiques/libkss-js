@@ -1,6 +1,7 @@
 import { getModule } from "./module.js";
 import encoding from "encoding-japanese";
 import sha1 from "sha1";
+import { Buffer } from 'buffer';
 
 /**
  * @param progress - progress (time in ms).
