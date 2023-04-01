@@ -51,7 +51,6 @@ list(JOIN exported_function_list "," exported_functions)
 
 set (linker_flag_list
   -O3 
-#  -sEXPORT_ES6=1
   -sSINGLE_FILE=1 
   -sFILESYSTEM=0 
   -sRESERVED_FUNCTION_POINTERS=16 
@@ -60,12 +59,13 @@ set (linker_flag_list
   --memory-init-file 0 
   -sEXPORTED_FUNCTIONS=${exported_functions}
   -sEXPORTED_RUNTIME_METHODS=ccall,cwrap,addFunction,removeFunction
+  -sMALLOC=emmalloc
 )
 
 list(JOIN linker_flag_list " " linker_flags)
 
-include(CMakePrintHelpers)
-cmake_print_variables(linker_flags)
+# include(CMakePrintHelpers)
+# cmake_print_variables(linker_flags)
 
 if(EMSCRIPTEN)
   set(CMAKE_EXE_LINKER_FLAGS ${linker_flags})
