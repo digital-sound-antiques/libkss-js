@@ -1,3 +1,7 @@
+# v2.0.0
+- Update target to ES2020.
+- All sources are now in Typescript.
+
 # v1.7.0
 - Improve PSG emulation quality.
 
