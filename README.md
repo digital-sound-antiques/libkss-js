@@ -1,7 +1,10 @@
 # libkss-js [![npm version](https://badge.fury.io/js/libkss-js.svg)](https://badge.fury.io/js/libkss-js)
 <img src="https://nodei.co/npm/libkss-js.png?downloads=true&stars=true" alt=""/>
 
-# Breaking Changes on 1.4.0
+## Breaking Changes on 2.0.0
+The module format of the package has chnaged to ES6 module from CommonJS.
+
+## Breaking Changes on 1.4.0
 `KSS.loadFromUrl(url)` is removed in order to eliminate dependence on `fetch` API. 
 Use the following code instead if required.
 
@@ -13,15 +16,15 @@ async function loadKSSFromUrl(url) {
 }
 ```
 
-# Breaking Changes on 1.3.0
+## Breaking Changes on 1.3.0
 `KSSPlay.initialize()` must be called with await before using KSSPlay.
 
-# Install
+## Install
 ```
 npm install --save libkss-js
 ```
 
-# Usage
+## Usage
 ```
 const { KSS, KSSPlay } = require('libkss-js');
 const { WaveFile } = require('wavefile');
@@ -56,7 +59,7 @@ async function main() {
 main();
 ```
 
-# How to Build
+## How to Build
 To build libkss.js, Emscripten 2.0.0 or greater is required. The latest tested version is 3.1.21.
 `emcmake` and `cmake` with some proper C compiler is required before npm install.
 
@@ -67,5 +70,5 @@ npm install
 npm run build
 ```
 
-# API Document
-https://digital-sound-antiques.github.io/libkss-js/
+## API Document
+https://digital-sound-antiques.github.io/libkss-js/api/

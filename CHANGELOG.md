@@ -1,7 +1,11 @@
+# v2.0.0
+- Update target to ES2020.
+- All sources are now in Typescript.
 # v1.7.2
 - Fix problem where library crashes when the buffer size for calc() is changed while playing.
 # v1.7.1
 - Update emu2149 to v1.41
+
 # v1.7.0
 - Improve PSG emulation quality.
 

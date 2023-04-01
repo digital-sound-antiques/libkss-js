@@ -49,6 +49,24 @@ set (exported_function_list
 
 list(JOIN exported_function_list "," exported_functions)
 
+set (linker_flag_list
+  -O3 
+  -sSINGLE_FILE=1 
+  -sFILESYSTEM=0 
+  -sRESERVED_FUNCTION_POINTERS=16 
+  -sMODULARIZE=1 
+  -sEXPORT_NAME=moduleFactory
+  --memory-init-file 0 
+  -sEXPORTED_FUNCTIONS=${exported_functions}
+  -sEXPORTED_RUNTIME_METHODS=ccall,cwrap,addFunction,removeFunction
+  -sMALLOC=emmalloc
+)
+
+list(JOIN linker_flag_list " " linker_flags)
+
+# include(CMakePrintHelpers)
+# cmake_print_variables(linker_flags)
+
 if(EMSCRIPTEN)
-  set(CMAKE_EXE_LINKER_FLAGS "-s WASM=1 -s SINGLE_FILE=1 -s FILESYSTEM=0 -s RESERVED_FUNCTION_POINTERS=16 -s MODULARIZE=1 --memory-init-file 0 -O3 -s EXPORTED_FUNCTIONS=\"[${exported_functions}]\" -s EXPORTED_RUNTIME_METHODS=\"[ccall,cwrap,addFunction,removeFunction]\"")
+  set(CMAKE_EXE_LINKER_FLAGS ${linker_flags})
 endif()
