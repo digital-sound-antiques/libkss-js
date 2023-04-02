@@ -1,7 +1,5 @@
 import { getModule } from "./module.js";
-import encoding from "encoding-japanese";
 import sha1 from "sha1";
-import { Buffer } from 'buffer';
 
 /**
  * @param progress - progress (time in ms).
@@ -74,11 +72,7 @@ export class KSS {
     for (i = 0; i < 256; i++) {
       if (getModule().HEAPU8[ptr + i] == 0) break;
     }
-    return encoding.convert(new Uint8Array(getModule().HEAPU8.buffer, ptr, i), {
-      type: "string",
-      to: "UNICODE",
-      from: "SJIS",
-    });
+    return new TextDecoder("ms932").decode(new Uint8Array(getModule().HEAPU8.buffer, ptr, i));
   }
 
   /**
@@ -111,8 +105,7 @@ export class KSS {
    * @returns A KSS instance.
    */
   static createUniqueInstance(data: Uint8Array, filename: string, song: number = 0) {
-    const buffer = Buffer.from(data.buffer, data.byteOffset, data.length);
-    const hashHex = `sha1:${sha1(buffer)}:${song}`;
+    const hashHex = `sha1:${sha1(data)}:${song}`;
     let kss = KSS.hashMap[hashHex];
     if (kss) {
       return kss;
