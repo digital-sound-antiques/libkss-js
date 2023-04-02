@@ -40,7 +40,6 @@
     "typescript": "^4.9.0"
   },
   "dependencies": {
-    "sjis2utf16": "file:../sjis2utf16",
     "sha1": "^1.1.1"
   },
   "repository": {
