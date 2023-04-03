@@ -62,12 +62,14 @@ export class KSSPlay {
 
   _memwrite_handler: ObjectPtr = 0;
   _iowrite_handler: ObjectPtr = 0;
+  _regsBuf: ObjectPtr = 0;
 
   /**
    * Create a new KSS player instance.
    * @param rate - playback sample rate.
    */
   constructor(rate: number = 44100) {
+    this._regsBuf = getModule()._malloc(256);
     this._kssplay = getModule().ccall(
       "KSSPLAY_new",
       "number",
@@ -229,6 +231,10 @@ export class KSSPlay {
       getModule()._free(this._buffer);
       this._buffer = 0;
     }
+    if (this._regsBuf) {
+      getModule()._free(this._regsBuf);
+      this._regsBuf = 0;
+    }
   }
 
   /**
@@ -301,6 +307,22 @@ export class KSSPlay {
    */
   getMGSJumpCount(): number {
     return getModule().ccall("KSSPLAY_get_MGS_jump_count", "number", ["number"], [this._kssplay]);
+  }
+
+  /**
+   * Read device's register array snapshot.
+   * @param device 
+   * @returns Device's register array snapshot.
+   */
+  readDeviceRegs(device: DeviceName): Uint8Array {
+    const id = deviceNameToId(device);
+    const size = getModule().ccall(
+      "KSSPLAY_read_device_regs",
+      "number",
+      ["number", "number", "number"],
+      [this._kssplay, id, this._regsBuf]
+    );
+    return getModule().HEAPU8.subarray(this._regsBuf, this._regsBuf + size).slice();
   }
 
   /**

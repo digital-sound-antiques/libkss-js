@@ -30,6 +30,7 @@ set (exported_function_list
   _KSSPLAY_get_MGS_jump_count
   _KSSPLAY_write_io
   _KSSPLAY_write_memory
+  _KSSPLAY_read_device_regs
   _KSS_new
   _KSS_get_title
   _KSS_delete
