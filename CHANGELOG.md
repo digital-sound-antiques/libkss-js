@@ -1,3 +1,5 @@
+# v2.1.0
+- Add KSSPLAY_read_device_regs().
 # v2.0.0
 - Update target to ES2020.
 - All sources are now in Typescript.
