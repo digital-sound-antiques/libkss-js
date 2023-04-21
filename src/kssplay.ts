@@ -199,6 +199,17 @@ export class KSSPlay {
   getStopFlag() {
     return getModule().ccall("KSSPLAY_get_stop_flag", "number", ["number"], [this._kssplay]);
   }
+
+  setChannelMask(device: DeviceName, mask: number) {
+    const deviceId = deviceNameToId(device);
+    return getModule().ccall(
+      "KSSPLAY_set_channel_mask",
+      null,
+      ["number", "number", "number"],
+      [this._kssplay, deviceId, mask],
+    );
+  }
+
   /**
    * Set RC low-pass filter params.
    * @param r - Registor (OM)

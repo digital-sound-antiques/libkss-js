@@ -27,6 +27,7 @@ set (exported_function_list
   _KSSPLAY_set_rcf
   _KSSPLAY_set_iowrite_handler
   _KSSPLAY_set_memwrite_handler
+  _KSSPLAY_set_channel_mask
   _KSSPLAY_get_MGS_jump_count
   _KSSPLAY_write_io
   _KSSPLAY_write_memory
