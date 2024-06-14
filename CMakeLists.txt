@@ -62,6 +62,7 @@ set (linker_flag_list
   -sEXPORTED_FUNCTIONS=${exported_functions}
   -sEXPORTED_RUNTIME_METHODS=ccall,cwrap,addFunction,removeFunction
   -sMALLOC=emmalloc
+  -sALLOW_MEMORY_GROWTH=1
 )
 
 list(JOIN linker_flag_list " " linker_flags)
