@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.0)
+cmake_minimum_required(VERSION 3.10)
 
 project(LIBKSS_JS)
 
@@ -18,6 +18,8 @@ set (exported_function_list
   _KSSPLAY_delete
   _KSSPLAY_calc
   _KSSPLAY_calc_silent
+  _KSSPLAY_save_state
+  _KSSPLAY_load_state
   _KSSPLAY_get_loop_count
   _KSSPLAY_get_fade_flag
   _KSSPLAY_fade_start
@@ -58,9 +60,8 @@ set (linker_flag_list
   -sRESERVED_FUNCTION_POINTERS=16 
   -sMODULARIZE=1 
   -sEXPORT_NAME=moduleFactory
-  --memory-init-file 0 
   -sEXPORTED_FUNCTIONS=${exported_functions}
-  -sEXPORTED_RUNTIME_METHODS=ccall,cwrap,addFunction,removeFunction
+  -sEXPORTED_RUNTIME_METHODS=ccall,cwrap,addFunction,removeFunction,HEAPU8
   -sMALLOC=emmalloc
   -sALLOW_MEMORY_GROWTH=1
 )

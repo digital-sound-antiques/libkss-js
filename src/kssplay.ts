@@ -160,6 +160,43 @@ export class KSSPlay {
     getModule().ccall("KSSPLAY_calc_silent", null, ["number", "number"], [this._kssplay, samples]);
   }
   /**
+   * Capture the current playback state as a snapshot (for seek / checkpoint).
+   * Includes the emulator state (Z80 CPU, sound chips, RAM) and playback
+   * progress. Host settings (volume/mute/pan/device type/filters) are not
+   * included, so restoring keeps the current settings. Per-channel masks set
+   * via {@link setChannelMask} live in the chip state and revert on load.
+   * @returns a copy of the snapshot bytes.
+   */
+  saveState(): Uint8Array {
+    const size = getModule().ccall("KSSPLAY_save_state", "number", ["number", "number"], [this._kssplay, 0]);
+    const ptr = getModule()._malloc(size);
+    try {
+      getModule().ccall("KSSPLAY_save_state", "number", ["number", "number"], [this._kssplay, ptr]);
+      return getModule().HEAPU8.subarray(ptr, ptr + size).slice();
+    } finally {
+      getModule()._free(ptr);
+    }
+  }
+  /**
+   * Restore a snapshot produced by {@link saveState}. The same song must already
+   * be loaded ({@link setData} + {@link reset}) so the memory layout matches.
+   * @param state - snapshot bytes from {@link saveState}.
+   */
+  loadState(state: Uint8Array): void {
+    const ptr = getModule()._malloc(state.length);
+    try {
+      getModule().HEAPU8.set(state, ptr);
+      getModule().ccall(
+        "KSSPLAY_load_state",
+        null,
+        ["number", "number", "number"],
+        [this._kssplay, ptr, state.length]
+      );
+    } finally {
+      getModule()._free(ptr);
+    }
+  }
+  /**
    * Get the number of loops of the current playing music.
    * @returns current loop counts.
    */
