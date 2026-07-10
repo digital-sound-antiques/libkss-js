@@ -1,2 +1,2 @@
 declare const moduleFactory: EmscriptenModuleFactory;
-export = moduleFactory;
+export default moduleFactory;
