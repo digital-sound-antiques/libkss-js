@@ -205,6 +205,30 @@ export class KSSPlay {
     ).slice();
   }
   /**
+   * Render `samples` of mixed audio AND the raw per-channel outputs in a single
+   * synthesis pass. `pcm` is the mixed output (as {@link calc}); `perCh` is the
+   * interleaved per-channel data (as {@link calcPerCh} — see {@link PerChLayout}).
+   * @param samples - number of samples to render.
+   */
+  calcWithPerCh(samples: number): { pcm: Int16Array; perCh: Int16Array } {
+    this._ensureBufferSize(samples * 2);
+    if (this._perChSamples < samples) {
+      if (this._perChBuf) getModule()._free(this._perChBuf);
+      this._perChBuf = getModule()._malloc(samples * PerChLayout.stride * 2);
+      this._perChSamples = samples;
+    }
+    getModule().ccall(
+      "KSSPLAY_calc_with_per_ch",
+      null,
+      ["number", "number", "number", "number"],
+      [this._kssplay, this._buffer, this._perChBuf, samples]
+    );
+    return {
+      pcm: new Int16Array(getModule().HEAPU8.buffer, this._buffer, samples).slice(),
+      perCh: new Int16Array(getModule().HEAPU8.buffer, this._perChBuf, samples * PerChLayout.stride).slice(),
+    };
+  }
+  /**
    * Capture the current playback state as a snapshot (for seek / checkpoint).
    * Includes the emulator state (Z80 CPU, sound chips, RAM) and playback
    * progress. Host settings (volume/mute/pan/device type/filters) are not
