@@ -18,6 +18,7 @@ set (exported_function_list
   _KSSPLAY_delete
   _KSSPLAY_calc
   _KSSPLAY_calc_silent
+  _KSSPLAY_calc_per_ch
   _KSSPLAY_save_state
   _KSSPLAY_load_state
   _KSSPLAY_get_loop_count

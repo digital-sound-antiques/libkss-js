@@ -46,6 +46,22 @@ export type MemWriteHandler = (context: KSSPlay, adr: number, data: number) => v
  */
 export type DeviceQualityParams = { psg?: number; scc?: number; opll?: number; opl?: number };
 
+/**
+ * Memory layout of one `KSSPLAY_PER_CH_OUT` sample as produced by
+ * {@link KSSPlay.calcPerCh}: 44 int16 values per sample. `offset` is the index
+ * of a device's first channel within the sample; `count` is its channel count.
+ */
+export const PerChLayout = {
+  psg: { offset: 0, count: 3 },
+  scc: { offset: 3, count: 5 },
+  opll: { offset: 8, count: 15 },
+  opl: { offset: 23, count: 15 },
+  sng: { offset: 38, count: 4 },
+  dac: { offset: 42, count: 2 },
+  /** int16 values per sample (struct size / 2) */
+  stride: 44,
+} as const;
+
 export class KSSPlay {
   /**
    * Initialize library. Must be called with await before using KSS and KSSPlay classes.
@@ -63,6 +79,8 @@ export class KSSPlay {
   _memwrite_handler: ObjectPtr = 0;
   _iowrite_handler: ObjectPtr = 0;
   _regsBuf: ObjectPtr = 0;
+  _perChBuf: ObjectPtr = 0;
+  _perChSamples = 0;
 
   /**
    * Create a new KSS player instance.
@@ -158,6 +176,33 @@ export class KSSPlay {
    */
   calcSilent(samples: number) {
     getModule().ccall("KSSPLAY_calc_silent", null, ["number", "number"], [this._kssplay, samples]);
+  }
+  /**
+   * Calculate `samples` of RAW per-channel output (all volume/pan/filter settings
+   * are ignored). Advances playback like {@link calc}. Returns an interleaved
+   * Int16Array of length `samples * PerChLayout.stride`; the value of a given
+   * channel at sample `i` is at `[i * PerChLayout.stride + deviceOffset + ch]`
+   * — see {@link PerChLayout}. Useful for per-channel waveform (oscilloscope)
+   * visualization.
+   * @param samples - number of samples to render.
+   */
+  calcPerCh(samples: number): Int16Array {
+    if (this._perChSamples < samples) {
+      if (this._perChBuf) getModule()._free(this._perChBuf);
+      this._perChBuf = getModule()._malloc(samples * PerChLayout.stride * 2);
+      this._perChSamples = samples;
+    }
+    getModule().ccall(
+      "KSSPLAY_calc_per_ch",
+      null,
+      ["number", "number", "number"],
+      [this._kssplay, this._perChBuf, samples]
+    );
+    return new Int16Array(
+      getModule().HEAPU8.buffer,
+      this._perChBuf,
+      samples * PerChLayout.stride
+    ).slice();
   }
   /**
    * Capture the current playback state as a snapshot (for seek / checkpoint).
@@ -282,6 +327,11 @@ export class KSSPlay {
     if (this._regsBuf) {
       getModule()._free(this._regsBuf);
       this._regsBuf = 0;
+    }
+    if (this._perChBuf) {
+      getModule()._free(this._perChBuf);
+      this._perChBuf = 0;
+      this._perChSamples = 0;
     }
   }
 
