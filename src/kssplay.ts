@@ -126,7 +126,10 @@ export class KSSPlay {
   /**
    * Resets the player.
    * @param song - The song number to play. If null, song index stored in KSS object is used.
-   * @param cpuSpeed - 0:AUTO, 1:3.58MHz 2:5.38MHz 3:7.16MHz 4:14.32MHz 5:28.64MHz
+   * @param cpuSpeed - Z80 clock as a multiple of the MSX base clock (3.579545MHz):
+   * 1 = 3.58MHz, 2 = 7.16MHz, 3 = 10.74MHz ... up to 8 = 28.64MHz. A value above 8
+   * falls back to 3.58MHz. 0 (default) is AUTO: 7.16MHz when the song uses FMPAC or
+   * MSX-AUDIO, otherwise 3.58MHz.
    */
   reset(song: number | null, cpuSpeed: number = 0) {
     getModule().ccall(
