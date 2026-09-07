@@ -1,6 +1,6 @@
 {
   "name": "libkss-js",
-  "version": "3.0.0-dev.3",
+  "version": "3.0.0-dev.4",
   "description": "KSS player library for Javascript",
   "type": "module",
   "main": "dist/index.js",
