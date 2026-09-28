@@ -181,6 +181,16 @@ export class KSSPlay {
     getModule().ccall("KSSPLAY_calc_silent", null, ["number", "number"], [this._kssplay, samples]);
   }
   /**
+   * Like {@link calcSilent}, but also clocks the sound chips that have envelopes
+   * (OPL, OPLL, PSG) exactly as {@link calc} does, so a state captured with
+   * {@link saveState} after a silent run matches real playback. Slower than
+   * {@link calcSilent}.
+   * @param samples - number of samples to calculate.
+   */
+  calcSilentAccurate(samples: number) {
+    getModule().ccall("KSSPLAY_calc_silent_accurate", null, ["number", "number"], [this._kssplay, samples]);
+  }
+  /**
    * Calculate `samples` of RAW per-channel output (all volume/pan/filter settings
    * are ignored). Advances playback like {@link calc}. Returns an interleaved
    * Int16Array of length `samples * PerChLayout.stride`; the value of a given

@@ -18,6 +18,7 @@ set (exported_function_list
   _KSSPLAY_delete
   _KSSPLAY_calc
   _KSSPLAY_calc_silent
+  _KSSPLAY_calc_silent_accurate
   _KSSPLAY_calc_per_ch
   _KSSPLAY_calc_with_per_ch
   _KSSPLAY_save_state
