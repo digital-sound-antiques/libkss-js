@@ -1,3 +1,8 @@
+# v3.1.0
+- Add `KSSPlay.calcSilentAccurate()`. Like `calcSilent()`, but also clocks OPL, OPLL and PSG, so a state
+  saved with `saveState()` after a silent run matches real playback. `calcSilent()` is unchanged.
+- Update libkss to 1.3.3 (emu2413 1.6.2: fixes distorted output after `loadState()` and speeds up OPLL).
+
 # v2.2.1
 - Fix the out-of-memory issue during large VGM generation.
 
