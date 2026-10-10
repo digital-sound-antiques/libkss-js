@@ -1,3 +1,7 @@
+# v3.1.1
+- Update libkss to 1.3.4 (emu2413 1.6.4 / emu8950 1.2.3: faster and more accurate rate converter, fixes OPLL
+  stereo output resampling L and R at different positions). The `saveState()` format has changed.
+
 # v3.1.0
 - Add `KSSPlay.calcSilentAccurate()`. Like `calcSilent()`, but also clocks OPL, OPLL and PSG, so a state
   saved with `saveState()` after a silent run matches real playback. `calcSilent()` is unchanged.
